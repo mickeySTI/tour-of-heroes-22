@@ -1,6 +1,6 @@
 import { HEROES } from './../../models/mock-heroes';
 import { Hero } from './../../models/hero.interface';
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-heroes',
@@ -10,7 +10,7 @@ import { Component, OnInit } from '@angular/core';
 export class HeroesComponent implements OnInit {
 
   heroes = HEROES
-  selectedHero?: Hero;
+  @Input() selectedHero?: Hero;
 
   constructor() { }
 
