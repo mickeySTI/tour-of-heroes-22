@@ -1,8 +1,6 @@
-import { MessageService } from './../../services/message.service';
-import { Observable } from 'rxjs';
 import { HeroService } from './../../services/hero.service';
 import { Hero } from './../../models/hero.interface';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-heroes',
@@ -20,5 +18,20 @@ export class HeroesComponent implements OnInit {
 
   getHeroes(): void {
     this.heroService.getHeroes().subscribe((heroes) => (this.heroes = heroes));
+  }
+
+  add(heroName: string): void {
+    heroName = heroName.trim();
+    if (!heroName) {
+      return;
+    }
+    this.heroService.addHero({ name: heroName } as Hero).subscribe((hero) => {
+      this.heroes?.push(hero);
+    });
+  }
+
+  delete(hero: Hero): void {
+    this.heroes = this.heroes?.filter((h) => h !== hero);
+    this.heroService.deleteHero(hero.id).subscribe();
   }
 }
